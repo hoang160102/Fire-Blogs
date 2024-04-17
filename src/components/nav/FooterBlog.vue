@@ -15,9 +15,9 @@
             </div>
           </div>
           <div class="direct d-flex flex-column v-col-xl-6 v-col-lg-6 v-col-md-6 v-col-sm-12 v-col-xs-12">
-            <router-link class="link px-3" :to="{name: 'Home'}">Home</router-link>
-            <router-link class="link px-3" to="#">Blogs</router-link>
-            <router-link class="link px-3" to="#">Login/Register</router-link>
+            <router-link class="link px-3" :to="{ name: 'Home' }">Home</router-link>
+            <router-link class="link px-3" :to="{ name: 'Blog' }">Blogs</router-link>
+            <router-link class="link px-3" :to="{ name: 'Login'}">Login/Register</router-link>
           </div>
         </div>
         <div class="right-content d-flex justify-end v-col-xl-6 v-col-lg-6 v-col-md-6 v-col-sm-12 v-col-xs-12">

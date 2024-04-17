@@ -6,10 +6,10 @@
             </div>
             <div class="nav-links d-flex align-center">
                 <ul v-if="!mobile">
-                    <router-link class="link mr-8 " :to="{name: 'Home'}">Home</router-link>
-                    <router-link class="link mr-8 " to="#">Blogs</router-link>
+                    <router-link class="link mr-8 " :to="{ name: 'Home' }">Home</router-link>
+                    <router-link class="link mr-8 " :to="{ name: 'Blog' }">Blogs</router-link>
                     <router-link class="link mr-8 " to="#">Create Post</router-link>
-                    <router-link class="link " to="#">Login/Register</router-link>
+                    <router-link class="link " :to="{ name: 'Login'}">Login/Register</router-link>
                 </ul>
                 <v-icon v-else @click="toggleNav">mdi-menu</v-icon>
             </div>
@@ -20,7 +20,7 @@
                         <router-link class="link py-4 text-white" to="#">Home</router-link>
                         <router-link class="link py-4 text-white" to="#">Blogs</router-link>
                         <router-link class="link py-4 text-white" to="#">Create Post</router-link>
-                        <router-link class="link py-4 text-white" to="#">Login/Register</router-link>
+                        <router-link class="link py-4 text-white" :to="{ name: 'Login' }">Login/Register</router-link>
                     </ul>
                 </nav>
         </transition>
