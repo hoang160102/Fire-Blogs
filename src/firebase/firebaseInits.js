@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app"
-import "firebase/firestore"
-
+import "firebase/firestore";
 const firebaseConfig = {
     apiKey: "AIzaSyC-taiJptc2fOTNII5_RVjVIyDjFRShtec",
     authDomain: "fireblogsproje.firebaseapp.com",
@@ -11,7 +10,5 @@ const firebaseConfig = {
   };
 
   const firebaseApp = initializeApp(firebaseConfig);
-  const timestamp = firebase.filestore.FieldValue.serverTimestamp
-
-export { timestamp }
-export default firebaseApp.firestore()
+  // const timestamp = firebase.filestore.FieldValue.serverTimestamp
+export default firebaseApp

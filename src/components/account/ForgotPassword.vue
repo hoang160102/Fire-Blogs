@@ -22,8 +22,8 @@
         <button @click="resetPass" class="bg-black px-5 py-2">Reset</button>
       </p>
     </div>
-    <div class="background h-100">
-      <img class="" src="../../img/background.png" alt="" />
+    <div class="background">
+      <img src="../../img/background.png" alt="">
     </div>
   </div>
 </template>
@@ -80,17 +80,18 @@ a {
   color: black;
 }
 
-img {
-  transform: rotate(3deg);
-}
-
 button {
   border-radius: 20px;
 }
 
-.background {
-  overflow-y: hidden;
-}
+/* .background {
+  width: 100%;
+  height: 100vh;
+  border-left: 3vw solid transparent;
+  border-bottom: 100vh solid rgba(0, 0, 0, 0.2);
+} */
+
+
 
 @media screen and (max-width: 960px) {
   .form-login {
