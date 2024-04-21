@@ -15,7 +15,12 @@
             label="First Name"
             prepend-inner-icon="mdi-account-outline"
             :error-messages="
-            checkError(submitted && v$.firstName.$error, v$.firstName.required, 'Please enter your first name')"
+              checkError(
+                submitted && v$.firstName.$error,
+                v$.firstName.required,
+                'Please enter your first name'
+              )
+            "
           >
           </v-text-field>
         </div>
@@ -25,7 +30,12 @@
             label="Last Name"
             prepend-inner-icon="mdi-account-outline"
             :error-messages="
-            checkError(submitted && v$.lastName.$error, v$.lastName.required, 'Please enter your last name')"
+              checkError(
+                submitted && v$.lastName.$error,
+                v$.lastName.required,
+                'Please enter your last name'
+              )
+            "
           >
           </v-text-field>
         </div>
@@ -35,7 +45,12 @@
             label="username"
             prepend-inner-icon="mdi-account-outline"
             :error-messages="
-            checkError(submitted && v$.username.$error, v$.username.required, 'Please enter your username')"
+              checkError(
+                submitted && v$.username.$error,
+                v$.username.required,
+                'Please enter your username'
+              )
+            "
           >
           </v-text-field>
         </div>
@@ -45,7 +60,12 @@
             label="Email"
             prepend-inner-icon="mdi-email-outline"
             :error-messages="
-            checkError(submitted && v$.email.$error, v$.email.required, 'Please enter a valid email')"
+              checkError(
+                submitted && v$.email.$error,
+                v$.email.required,
+                'Please enter a valid email'
+              )
+            "
           >
           </v-text-field>
         </div>
@@ -55,7 +75,12 @@
             label="Password"
             prepend-inner-icon="mdi-lock"
             :error-messages="
-            checkError(submitted && v$.password.$error, v$.password.required, 'Your password must have at least 6 characters')"
+              checkError(
+                submitted && v$.password.$error,
+                v$.password.required,
+                'Your password must have at least 6 characters'
+              )
+            "
           >
           </v-text-field>
         </div>
@@ -89,7 +114,7 @@ export default {
       username: "",
       email: "",
       password: "",
-      submitted: false
+      submitted: false,
     };
   },
   validations() {
@@ -102,7 +127,7 @@ export default {
     };
   },
   computed: {
-    ...auth.authComputed
+    ...auth.authComputed,
   },
   methods: {
     ...auth.authMethods,
@@ -112,23 +137,22 @@ export default {
       }
     },
     async registerUser() {
-        this.submitted = true
-        const isFormCorrect = this.v$.$validate()
-        isFormCorrect.then((result) => {
-            if (!result) {
-                return
-            }
-            else {
-                const { firstName, lastName, username, email, password } = this
-                this.register({
-                    firstName,
-                    lastName,
-                    username,
-                    email,
-                    password
-                })
-            }
-        })
+      this.submitted = true;
+      const isFormCorrect = this.v$.$validate();
+      isFormCorrect.then((result) => {
+        if (!result) {
+          return;
+        } else {
+          const { firstName, lastName, username, email, password } = this;
+          this.register({
+            firstName,
+            lastName,
+            username,
+            email,
+            password,
+          });
+        }
+      });
     },
   },
 };

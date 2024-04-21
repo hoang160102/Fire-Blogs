@@ -1,8 +1,8 @@
 import { mapState, mapActions } from "vuex";
 export const authComputed = {
-    ...mapState('users/auth', ["currentUser", "listUsers"])
+    ...mapState('users/auth', ["user", "listUsers", "errorMsg"])
 }
 
 export const authMethods = {
-    ...mapActions('users/auth', ["register"])
+    ...mapActions('users/auth', ["register", "login", "resetPass", "getCurrentUser"])
 }

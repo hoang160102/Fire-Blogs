@@ -5,9 +5,20 @@
 </template>
 
 <script>
-
+// import { getAuth } from 'firebase/auth';
+import { auth } from './state/helpers';
 export default {
-  
+  computed: {
+    ...auth.authComputed
+  },
+  methods: {
+    ...auth.authMethods
+  },
+  async created() {
+    await this.getCurrentUser()
+    console.log(this.user)
+    // console.log(getAuth().currentUser)
+  }
 }
 </script>
 
