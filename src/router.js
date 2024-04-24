@@ -4,6 +4,7 @@ import BlogsPage from "./components/pages/BlogsPage.vue";
 import RegisterAccount from "./components/account/RegisterAccount.vue"
 import LoginAccount from "./components/account/LoginAccount.vue"
 import ForgotPassword from "./components/account/ForgotPassword.vue"
+import ProfilePage from "./components/pages/ProfilePage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,7 +13,8 @@ const router = createRouter({
     { path: "/blogs", name: "Blog", component: BlogsPage, meta: { title: 'Blogs'} },
     { path: "/register", name: "Register", component: RegisterAccount, meta: { title: 'Register'} },
     { path: "/login", name: 'Login', component: LoginAccount, meta: { title: 'Login' } },
-    { path: "/forgot-password", name: 'Forgot Password', component: ForgotPassword, meta: { title: 'Forgot Password' } }
+    { path: "/forgot-password", name: 'Forgot Password', component: ForgotPassword, meta: { title: 'Forgot Password' } },
+    { path: "/profile", name: 'Profile', component: ProfilePage, meta: { title: 'Profile'} }
   ],
   scrollBehavior(to, from, savedPos) {
     if (savedPos) {

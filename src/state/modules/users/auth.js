@@ -4,13 +4,16 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  signOut,
 } from "firebase/auth";
 import {
   getFirestore,
   collection,
   setDoc,
   doc,
+  updateDoc,
   getDocs,
+ 
 } from "firebase/firestore";
 import router from "@/router";
 export const state = {
@@ -26,9 +29,11 @@ export const mutations = {
     state.errorMsg = msg;
   },
   currentUser(state, data) {
-    state.user = data
-    console.log(state.user)
-  }
+    state.user = data;
+  },
+  logoutUser(state) {
+    state.user = null;
+  },
 };
 
 export const actions = {
@@ -57,7 +62,7 @@ export const actions = {
       .then(() => {
         setTimeout(() => {
           router.push({ name: "Home" });
-        }, 1000)
+        }, 1000);
       })
       .catch((err) => {
         if (err.code.includes("auth/")) {
@@ -78,21 +83,43 @@ export const actions = {
   async getCurrentUser( {commit}) {
     const db = getFirestore(firebaseApp);
     const usersCol = collection(db, "users");
-    const auth = getAuth();
-    const currentId = auth.currentUser.uid;
     const userSnapshot = await getDocs(usersCol);
-    const getUser = userSnapshot.docs.filter((doc) => {
-      return doc.id === currentId;
-    });
-    const currentUser = {
-      id: currentId,
-      firstName: getUser[0].data().firstName,
-      lastName: getUser[0].data().lastName,
-      username: getUser[0].data().username,
-      email: getUser[0].data().email,
-      password: getUser[0].data().password,
+    try {
+      const auth = getAuth();
+      const currentId = auth.currentUser.uid;
+      const getUser = userSnapshot.docs.filter((doc) => {
+        return doc.id === currentId;
+      });
+      const currentUser = {
+        id: currentId,
+        firstName: getUser[0].data().firstName,
+        lastName: getUser[0].data().lastName,
+        username: getUser[0].data().username,
+        email: getUser[0].data().email,
+        password: getUser[0].data().password,
+      }
+      commit('currentUser', currentUser)
     }
-    commit('currentUser', currentUser)
+    catch(err) {
+      return err
+    }
+  },
+  async updateAccount(_, user) {
+    const db = getFirestore(firebaseApp)
+    const auth = getAuth()
+    const getUserFromDatabase = doc(db, "users", auth.currentUser.uid)
+    await updateDoc(getUserFromDatabase, {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username
+    })
+  },
+  async logout({ commit }) {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      commit("logoutUser");
+      router.push({ name: "Login" });
+    });
   },
 };
 

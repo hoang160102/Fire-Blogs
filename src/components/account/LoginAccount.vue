@@ -102,7 +102,7 @@ export default {
           this.login({
             email,
             password,
-          });
+          })
         }
       });
     },

@@ -2,6 +2,7 @@
   <teleport to="body">
     <modal-base
       :load="isLoading"
+      :msg="message"
       v-if="showModal"
       @close-modal="close"
     ></modal-base>

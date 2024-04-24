@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  props: ["load"],
+  props: ["load", "msg"],
   methods: {
     closeModal() {
       this.$emit("close-modal");
