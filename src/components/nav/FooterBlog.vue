@@ -16,7 +16,7 @@
           </div>
           <div class="direct d-flex flex-column v-col-xl-6 v-col-lg-6 v-col-md-6 v-col-sm-12 v-col-xs-12">
             <router-link class="link px-3" :to="{ name: 'Home' }">Home</router-link>
-            <router-link class="link px-3" :to="{ name: 'Blog' }">Blogs</router-link>
+            <router-link class="link px-3" :to="{ name: 'Blogs' }">Blogs</router-link>
             <router-link class="link px-3" :to="{ name: 'Login'}">Login/Register</router-link>
           </div>
         </div>
@@ -36,7 +36,6 @@ export default {};
 .v-container {
   max-width: 1440px;
 }
-
 .link {
   text-decoration: none;
   color: #fff;

@@ -11,7 +11,6 @@ import "@mdi/font/css/materialdesignicons.css";
 import router from "./router";
 import store from "./state/store";
 import MainContent from "./components/layout/MainContent.vue";
-
 const vuetify = createVuetify({
   components,
   directives,

@@ -31,10 +31,6 @@
   font-family: "Quicksand", sans-serif;
 }
 
-body { 
-  position: relative;
-}
-
 .app {
   min-height: 100px;
 }

@@ -10,5 +10,4 @@ const firebaseConfig = {
   };
 
   const firebaseApp = initializeApp(firebaseConfig);
-  // const timestamp = firebase.filestore.FieldValue.serverTimestamp
 export default firebaseApp

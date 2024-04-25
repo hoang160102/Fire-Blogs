@@ -7,7 +7,7 @@
           <div class="user-name bg-teal-darken-4">{{ standName }}</div>
         </div>
         <form class="mt-5" @submit.prevent="saveChanges">
-          <div class="form-control">
+          <div class="form-control mb-5">
             <v-text-field
               v-model="firstName"
               label="First Name"
@@ -22,7 +22,7 @@
             >
             </v-text-field>
           </div>
-          <div class="form-control">
+          <div class="form-control mb-5">
             <v-text-field
               v-model="lastName"
               label="Last Name"
@@ -37,7 +37,7 @@
             >
             </v-text-field>
           </div>
-          <div class="form-control">
+          <div class="form-control mb-5">
             <v-text-field
               v-model="username"
               label="username"
@@ -52,7 +52,7 @@
             >
             </v-text-field>
           </div>
-          <div class="form-control">
+          <div class="form-control mb-5">
             <v-text-field
               disabled
               v-model="email"
@@ -69,7 +69,7 @@
             </v-text-field>
           </div>
         </form>
-        <div class="d-flex mt-5 justify-center">
+        <div class="d-flex justify-center">
           <button @click="saveChanges" class="px-3 py-2 bg-teal-darken-4">
             Save Changes
           </button>

@@ -1,3 +1,5 @@
+import firebaseApp from "@/firebase/firebaseInits";
+import { serverTimestamp, getFirestore} from "firebase/firestore"
 export const state = {
     sampleBlogCard: [
         {
@@ -20,13 +22,21 @@ export const state = {
           blogCoverPhoto: "stock-4",
           blogDate: "May 4, 2024",
         },
-      ]
+      ],
+    blogPost: []
 }
 
 export const mutations = {
-
+  previewPost(state, data) {
+    state.blogPost = data
+    console.log(state.blogPost)
+  }
 }
 
 export const actions = {
-    
+    async uploadPost() {
+      await getFirestore(firebaseApp);
+      const time = serverTimestamp()
+      console.log(time)
+    }
 }

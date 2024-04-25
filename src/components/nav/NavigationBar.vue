@@ -11,10 +11,10 @@
           <router-link class="link mr-8" :to="{ name: 'Home' }"
             >Home</router-link
           >
-          <router-link class="link mr-8" :to="{ name: 'Blog' }"
+          <router-link class="link mr-8" :to="{ name: 'Blogs' }"
             >Blogs</router-link
           >
-          <router-link class="link mr-8" to="#">Create Post</router-link>
+          <router-link v-if="isLoggedIn" class="link mr-8" :to="{name: 'Create Post'}">Create Post</router-link>
           <router-link v-if="!isLoggedIn" class="link" :to="{ name: 'Login' }"
             >Login/Register</router-link
           >
@@ -34,10 +34,6 @@
               </div>
             </div>
             <div class="px-5 d-flex flex-column pb-5 pt-3">
-              <router-link to="#" class="admin">
-                <v-icon class="icon mr-8 mb-2">mdi-account-cog-outline</v-icon
-                >Admin
-              </router-link>
               <router-link :to="{ name: 'Profile' }" class="user">
                 <v-icon class="icon mr-8 mb-2">mdi-account-outline</v-icon
                 >Profile
@@ -54,9 +50,9 @@
     <transition name="mobileNav" class="mobile-nav pa-5">
       <nav v-show="mobileNav" class="bg-blue-grey-darken-4 pa-5">
         <ul class="d-flex flex-column">
-          <router-link class="link py-4 text-white" to="#">Home</router-link>
-          <router-link class="link py-4 text-white" to="#">Blogs</router-link>
-          <router-link class="link py-4 text-white" to="#"
+          <router-link class="link py-4 text-white" to="/">Home</router-link>
+          <router-link class="link py-4 text-white" :to="{ name: 'Blogs' }">Blogs</router-link>
+          <router-link v-if="isLoggedIn" class="link py-4 text-white" :to="{ name: 'Create Post'}"
             >Create Post</router-link
           >
           <router-link
@@ -194,6 +190,7 @@ header {
   width: 300px;
   right: 0;
   top: 70px;
+  z-index: 1;
 }
 
 .username,
