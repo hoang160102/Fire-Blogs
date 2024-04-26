@@ -31,6 +31,10 @@
   font-family: "Quicksand", sans-serif;
 }
 
+body {
+  height: 100%;
+}
+
 .app {
   min-height: 100px;
 }

@@ -1,7 +1,9 @@
 <template>
     <v-container>
-      <h2>{{ blogPost.blogTitle }}</h2>
-      <img :src="blogPost.linkImg" alt="" />
+      <h2 class="mb-3">{{ blogPost.blogTitle }}</h2>
+      <div class="img mb-3 d-flex justify-center">
+        <img :src="blogPost.linkImg" alt="" />
+      </div>
       <div class="post-content ql-editor" v-html="blogPost.blogHTML"></div>
     </v-container>
 </template>
@@ -21,12 +23,11 @@ export default {
     min-height: 100%;
 }
 h2 {
-    margin-bottom: 16px;
-    font-weight: 300;
-    font-size: 32px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
   }
   img {
-    width: 100%;
-    margin-bottom: 32px;
+    width: 800px;
   }
 </style>

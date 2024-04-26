@@ -1,9 +1,9 @@
 <template>
   <main-content>
     <div class="home">
-      <blog-post :post="welcomeScreen"></blog-post>
+      <blog-post v-if="!user" :post="welcomeScreen"></blog-post>
       <blog-post
-        v-for="(post, index) in sampleBlogPost"
+        v-for="(post, index) in sampleBlogCard"
         :post="post"
         :key="index"
       >
@@ -39,7 +39,7 @@
           <div class="right-content">
             <router-link
               class="bg-blue-grey-darken-4 register-btn link pa-4"
-              to="#"
+              :to="{ name: 'Register' }"
             >
               REGISTER FOR FIREBLOG
               <v-icon>mdi-arrow-right</v-icon>
@@ -55,6 +55,7 @@
 import BlogCard from "../blog/BlogCard.vue";
 import BlogPost from "../blog/BlogPost.vue";
 import { blogs } from "@/state/helpers";
+import { auth } from "@/state/helpers";
 export default {
   data() {
     return {
@@ -84,8 +85,16 @@ export default {
     BlogCard,
   },
   computed: {
-    ...blogs.blogsComputed
+    ...blogs.blogsComputed,
+    ...auth.authComputed,
   },
+  methods: {
+    ...blogs.blogsMethods
+  },
+  async created() {
+    await this.getAllBlogs()
+    console.log(this.getAllBlogs())
+  }
 };
 </script>
 

@@ -35,6 +35,7 @@
               id="blog-photo"
               accept=".png, .jpg, .jpeg"
               v-model="file"
+              style="overflow: hidden;"
             ></v-file-input>
             <div class="mr-4">
               <button
@@ -132,9 +133,14 @@ export default {
         blogHTML: getHtml,
       });
     },
-    publishBlog() {
+    async publishBlog() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
       if (this.content && this.title.length !== 0) {
         if (this.file) {
+          this.error = false
           const getHtml = this.$refs.html.getHTML();
           this.uploadPost({
             blogTitle: this.title,
@@ -155,10 +161,6 @@ export default {
           this.error = false;
         }, 3000);
       }
-      this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 1000);
     },
   },
 };
@@ -212,6 +214,6 @@ p > span {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
-  height: 100vh;
+  height: inherit;
 }
 </style>
