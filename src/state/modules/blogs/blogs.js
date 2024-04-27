@@ -1,5 +1,5 @@
 import firebaseApp from "@/firebase/firebaseInits";
-import { Timestamp, getFirestore, addDoc, collection, getDocs } from "firebase/firestore"
+import { Timestamp, getFirestore, setDoc, collection, getDocs, doc } from "firebase/firestore"
 import { getAuth } from "firebase/auth";
 export const state = {
     sampleBlogCard: [
@@ -25,7 +25,8 @@ export const state = {
         },
       ],
     blogPost: [],
-    blogs: []
+    blogs: [],
+    blogItem: {}
 }
 
 export const mutations = {
@@ -34,6 +35,10 @@ export const mutations = {
   },
   allBlogs(state, data) {
     state.blogs = data
+  },
+  fetchBlogItem(state, data) {
+    state.blogItem = data
+    console.log(state.blogItem.blogTitle)
   }
 }
 
@@ -50,12 +55,11 @@ export const actions = {
       //   blogHTML: data.blogHTML,
       //   createdAt: `${month} ${date}, ${year}`
       // }
-      const database = collection(db, "blogs")
-      console.log(data.linkImg)
-      await addDoc(database, {
-        blogId: database.id,
+      const blogRef = doc(collection(db, "blogs"))
+      await setDoc(blogRef, {
+        blogId: blogRef.id,
         blogTitle: data.blogTitle,
-        blogImg: data.linkImg,
+        blogImg: data.blogImg,
         blogHTML: data.blogHTML,
         author: getAuth().currentUser.uid,
         createdAt: `${month} ${date}, ${year}`,
@@ -70,7 +74,14 @@ export const actions = {
         arr.push(doc.data())
       })
       commit("allBlogs", arr)
-      console.log(arr)
+    },
+    async getCurrentBlog( { state, commit }, id) {
+      console.log(state.blogs)
+      let currentBlog = state.blogs.filter((blog) => {
+        return blog.blogId === id
+      })
+      console.log(currentBlog)
+      commit("fetchBlogItem", currentBlog[0])
     }
 }
 

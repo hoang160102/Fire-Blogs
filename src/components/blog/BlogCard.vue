@@ -11,13 +11,13 @@
         </div>
       <img
         class="w-100 h-100"
-        :src="require(`../../img/${photo}.jpg`)"
+        :src="photo"
         alt=""
       />
       <div class="title">{{ title }}</div>
       <div class="date">Posted Date {{ date }}</div>
     </div>
-    <router-link class="link" to="#"
+    <router-link class="link" :to="{ name: 'BlogDetail', params: { blogid: this.id}}"
       >View the post
       <v-icon>mdi-arrow-right</v-icon>
     </router-link>
@@ -27,7 +27,7 @@
 <script>
 import { toggleEditComputed } from '@/state/helpers';
 export default {
-  props: ["title", "photo", "date"],
+  props: ["title", "photo", "date", "id"],
   computed: {
     ...toggleEditComputed
   }

@@ -4,7 +4,7 @@
       class="modal-content bg-white d-flex flex-column align-end pa-7"
     >
       <v-icon @click="closeModal">mdi-window-close</v-icon>
-      <img class="w-100" src="blob:http://localhost:8080/2e679754-64b0-451e-a45b-90736e040b90"
+      <img class="w-100" :src="link"
       alt="" />
     </div>
   </div>

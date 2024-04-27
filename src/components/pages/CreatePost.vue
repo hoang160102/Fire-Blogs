@@ -35,7 +35,8 @@
               id="blog-photo"
               accept=".png, .jpg, .jpeg"
               v-model="file"
-              style="overflow: hidden;"
+              style="overflow: hidden"
+              :clearable="false"
             ></v-file-input>
             <div class="mr-4">
               <button
@@ -82,6 +83,12 @@ import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import BlotFormatter from "quill-blot-formatter/dist/BlotFormatter";
 import PreviewPhoto from "../layout/PreviewPhoto.vue";
 import { blogs } from "@/state/helpers";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 export default {
   name: "CreatePost",
   components: {
@@ -95,11 +102,6 @@ export default {
       options: {},
     };
     return { modules };
-    // const myEditor= ref(null)
-    // onMounted(()=> {
-    //   console.log(myEditor.value.getEditor())
-    // })
-    // return { myEditor }
   },
   data() {
     return {
@@ -118,6 +120,7 @@ export default {
     ...blogs.blogsMethods,
     fileChange() {
       this.linkImg = URL.createObjectURL(this.file);
+      // console.log(this.file.name)
     },
     watchPreview() {
       this.isPreview = true;
@@ -138,15 +141,31 @@ export default {
       setTimeout(() => {
         this.isLoading = false;
       }, 1000);
-      if (this.content && this.title.length !== 0) {
+      if (this.content && this.title.length > 0) {
         if (this.file) {
-          this.error = false
-          const getHtml = this.$refs.html.getHTML();
-          this.uploadPost({
-            blogTitle: this.title,
-            linkImg: this.linkImg,
-            blogHTML: getHtml,
-          });
+          this.error = false;
+          const storage = getStorage();
+          const docRef = ref(storage, "/images" + this.file.name);
+          const uploadTask = uploadBytesResumable(docRef, this.file);
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              return snapshot;
+            },
+            (err) => {
+              console.log(err);
+            },
+            async () => {
+              const getHtml = this.$refs.html.getHTML();
+              await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                this.uploadPost({
+                  blogImg: downloadURL,
+                  blogTitle: this.title,
+                  blogHTML: getHtml,
+                });
+              });
+            }
+          );
         } else {
           this.error = true;
           this.errorMsg = "Please ensure you uploaded a cover photo!";
@@ -215,5 +234,13 @@ p > span {
   position: absolute;
   top: 0;
   height: inherit;
+}
+
+.v-field__clearable {
+  opacity: 0 !important;
+}
+
+.mdi-close-circle {
+  opacity: 0 !important;
 }
 </style>

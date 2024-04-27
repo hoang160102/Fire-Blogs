@@ -7,11 +7,12 @@
       </div>
       <div class="blogs d-flex pb-15 flex-wrap">
         <blog-card
-          v-for="(card, index) in sampleBlogCard"
+          v-for="(card, index) in blogs"
           :key="index"
           :title="card.blogTitle"
-          :photo="card.blogCoverPhoto"
+          :photo="card.blogImg"
           :date="card.blogDate"
+          :id="card.blogId"
         >
         </blog-card>
       </div>
@@ -38,9 +39,12 @@ export default {
       }
     },
   },
-  // beforeUnmount() {
-  //   this.$store.commit('toggleEdit/toggleAllowEdit', false)
-  // }
+  methods: {
+    ...blogs.blogsMethods
+  },
+  created() {
+    this.getAllBlogs()
+  }
 };
 </script>
 

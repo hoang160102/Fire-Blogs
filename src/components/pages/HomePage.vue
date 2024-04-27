@@ -3,7 +3,7 @@
     <div class="home">
       <blog-post v-if="!user" :post="welcomeScreen"></blog-post>
       <blog-post
-        v-for="(post, index) in sampleBlogCard"
+        v-for="(post, index) in blogPostsFeed"
         :post="post"
         :key="index"
       >
@@ -14,16 +14,18 @@
         <div class="title">View More Recent Blogs</div>
         <div class="blogs d-flex flex-wrap">
           <blog-card
-            v-for="(card, index) in sampleBlogCard"
+            v-for="(card, index) in blogPostsCards"
             :key="index"
             :title="card.blogTitle"
-            :photo="card.blogCoverPhoto"
-            :date="card.blogDate"
+            :photo="card.blogImg"
+            :date="card.createdAt"
+            :id="card.blogId"
           >
           </blog-card>
         </div>
       </div>
       <div
+      v-if="!user"
         class="my-15 py-15 register-section d-flex flex-wrap justify-space-between"
       >
         <div
@@ -89,12 +91,12 @@ export default {
     ...auth.authComputed,
   },
   methods: {
-    ...blogs.blogsMethods
+    ...blogs.blogsMethods,
   },
   async created() {
-    await this.getAllBlogs()
-    console.log(this.getAllBlogs())
-  }
+    await this.getAllBlogs();
+    console.log(this.blogPostsCards);
+  },
 };
 </script>
 

@@ -7,18 +7,20 @@ import ForgotPassword from "./components/account/ForgotPassword.vue"
 import ProfilePage from "./components/pages/ProfilePage.vue";
 import CreatePost from "./components/pages/CreatePost.vue";
 import PreviewBlog from "./components/pages/PreviewBlog.vue";
+import BlogPage from "./components/pages/BlogDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", name: "Home", component: HomePage, meta: { title: 'Home'} },
-    { path: "/blogs", name: "Blogs", component: BlogsPage, meta: { title: 'Blogs'} },
+    { path: "/blog", name: "Blogs", component: BlogsPage, meta: { title: 'Blogs'} },
     { path: "/register", name: "Register", component: RegisterAccount, meta: { title: 'Register'} },
     { path: "/login", name: 'Login', component: LoginAccount, meta: { title: 'Login' } },
     { path: "/forgot-password", name: 'Forgot Password', component: ForgotPassword, meta: { title: 'Forgot Password' } },
     { path: "/profile", name: 'Profile', component: ProfilePage, meta: { title: 'Profile'} },
     { path: "/create-post", name: 'Create Post', component: CreatePost, meta: { title: 'Create Post'} },
-    { path: "/blog-review", name: 'Blog Preview', component: PreviewBlog, meta: { title: 'Blog Review'} }
+    { path: "/blog-review", name: 'Blog Preview', component: PreviewBlog, meta: { title: 'Blog Review'} },
+    { path: "/blog/:blogid", name: 'BlogDetail', component: BlogPage, meta: { title: 'BlogDetail' }}
   ],
   scrollBehavior(to, from, savedPos) {
     if (savedPos) {

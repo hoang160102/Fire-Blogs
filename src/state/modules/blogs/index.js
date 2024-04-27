@@ -1,7 +1,7 @@
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 export const blogsComputed = {
-    ...mapState('blogs/blogs', ["sampleBlogCard", 'blogPost']),
-    ...mapGetters('blogs/blogs', ["blogPostsFeed", "blogsPostCards"])
+    ...mapState('blogs/blogs', ["sampleBlogCard", 'blogPost', 'blogs', 'blogItem']),
+    ...mapGetters('blogs/blogs', ["blogPostsFeed", "blogPostsCards"])
 }
 
 export const blogsMutation = {
@@ -9,5 +9,5 @@ export const blogsMutation = {
 }
 
 export const blogsMethods = {
-    ...mapActions('blogs/blogs', ["uploadPost", "getAllBlogs"])
+    ...mapActions('blogs/blogs', ["uploadPost", "getAllBlogs", "getCurrentBlog"])
 }
