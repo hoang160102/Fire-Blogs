@@ -10,7 +10,7 @@
             </div>
         </div>
       <img
-        class="w-100 h-100"
+        class="w-100"
         :src="photo"
         alt=""
       />
@@ -58,7 +58,7 @@ export default {
 }
 
 img {
-  min-height: 250px;
+  height: 250px;
 }
 
 .card:hover {
