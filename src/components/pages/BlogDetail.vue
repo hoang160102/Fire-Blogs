@@ -3,7 +3,6 @@
     <v-container>
       <h2 class="mb-3">{{ blogItem.blogTitle }}</h2>
       <h4 class="mb-3">Posted on: {{ blogItem.createdAt }}</h4>
-      <h4 class="mb-3">Author: {{ getAuthor }}</h4>
       <div class="img mb-3 d-flex justify-center">
         <img :src="blogItem.blogImg" alt="" />
       </div>
@@ -21,12 +20,6 @@ export default {
   computed: {
     ...blogs.blogsComputed,
     ...auth.authComputed,
-    getAuthor() {
-      const author = this.listUsers.filter((user) => {
-        return user.id === this.blogItem.author
-      })
-      return `${author[0].firstName} ${author[0].lastName}`
-    }
   },
   methods: {
     ...blogs.blogsMethods,
