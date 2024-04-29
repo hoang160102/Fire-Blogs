@@ -32,9 +32,9 @@ const router = createRouter({
   },
 });
 
-// router.beforeEach((to, _, next) => {
-//     document.title = `${to.meta.title} | FireBlog`
-//     next()
-// })
+router.beforeEach((to, _, next) => {
+    document.title = `${to.meta.title} | FireBlog`
+    next()
+})
 
 export default router;

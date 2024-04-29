@@ -218,6 +218,7 @@ header {
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 2;
 }
 
 .mobileNav-enter-active {
