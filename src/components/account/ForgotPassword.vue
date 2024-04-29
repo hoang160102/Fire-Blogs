@@ -9,7 +9,7 @@
   </teleport>
   <div class="form-wrap d-flex align-center justify-space-between pa-0">
     <div
-      class="px-15 form-login v-col-xl-4 v-col-lg-4 v-col-md-5 v-col-sm-8 v-col-xs-8"
+      class="px-15 form-login v-col-xl-5 v-col-lg-5 v-col-md-5 v-col-sm-8 v-col-xs-8"
     >
       <p>
         Back to
@@ -124,12 +124,10 @@ button {
   border-radius: 20px;
 }
 
-/* .background {
-  width: 100%;
+.background {
   height: 100vh;
-  border-left: 3vw solid transparent;
-  border-bottom: 100vh solid rgba(0, 0, 0, 0.2);
-} */
+  overflow: hidden;
+}
 
 @media screen and (max-width: 960px) {
   .form-login {

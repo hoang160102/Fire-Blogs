@@ -8,6 +8,7 @@ import ProfilePage from "./components/pages/ProfilePage.vue";
 import CreatePost from "./components/pages/CreatePost.vue";
 import PreviewBlog from "./components/pages/PreviewBlog.vue";
 import BlogPage from "./components/pages/BlogDetail.vue";
+import EditBlog from "./components/pages/EditBlog.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,7 +21,8 @@ const router = createRouter({
     { path: "/profile", name: 'Profile', component: ProfilePage, meta: { title: 'Profile'} },
     { path: "/create-post", name: 'Create Post', component: CreatePost, meta: { title: 'Create Post'} },
     { path: "/blog-review", name: 'Blog Preview', component: PreviewBlog, meta: { title: 'Blog Review'} },
-    { path: "/blog/:blogid", name: 'BlogDetail', component: BlogPage, meta: { title: 'BlogDetail' }}
+    { path: "/blog/:blogid", name: 'BlogDetail', component: BlogPage, meta: { title: 'Blog Detail' }},
+    { path: "/blog/edit-blog/:blogid", name: 'EditBlog', component: EditBlog, meta: { title: 'Edit Blog' }}
   ],
   scrollBehavior(to, from, savedPos) {
     if (savedPos) {

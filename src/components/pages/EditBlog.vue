@@ -8,8 +8,7 @@
   </Teleport>
   <main-content>
     <v-container class="d-flex flex-column justify-center">
-      <h1 class="mb-3">Upload Your Post</h1>
-      <h4 v-if="!isLoggedIn" class="mb-3 text-red">You have to login to upload the blog</h4>
+      <h1 class="my-3">Edit Post</h1>
       <div class="w-100">
         <div class="blog-info d-flex mb-8">
           <v-text-field
@@ -50,10 +49,10 @@
         <div class="blog-action v-col-5 d-flex my-5">
           <button
             :class="{ inactive: !this.user }"
-            @click="publishBlog"
+            @click="updatePost"
             class="btn v-col-6 d-flex align-center justify-center px-5 py-3 mr-4 bg-teal-darken-4"
           >
-            Publish Blog
+            Update Blog
             <v-progress-circular
               v-if="isLoading"
               class="ml-2"
@@ -119,10 +118,8 @@ export default {
     };
   },
   computed: {
+    ...blogs.blogsComputed,
     ...auth.authComputed,
-    isLoggedIn() {
-      return this.user ? this.user : null
-    }
   },
   methods: {
     ...blogs.blogsMutation,
@@ -130,10 +127,10 @@ export default {
     ...auth.authMethods,
     fileChange() {
       this.linkImg = URL.createObjectURL(this.file);
-      // console.log(this.file.name)
     },
     watchPreview() {
       this.isPreview = true;
+      console.log(this.$refs.html.getText());
     },
     close() {
       this.isPreview = false;
@@ -146,7 +143,7 @@ export default {
         blogHTML: getHtml,
       });
     },
-    async publishBlog() {
+    async updatePost() {
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
@@ -167,14 +164,16 @@ export default {
             },
             async () => {
               const getHtml = this.$refs.html.getHTML();
-              await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                this.uploadPost({
-                  blogImg: downloadURL,
-                  blogTitle: this.title,
-                  blogHTML: getHtml,
-                });
-              });
-              this.getAllBlogs()
+              await getDownloadURL(uploadTask.snapshot.ref).then(
+                (downloadURL) => {
+                  this.updateBlog({
+                    blogImg: downloadURL,
+                    blogTitle: this.title,
+                    blogHTML: getHtml,
+                    linkId: this.$route.params.blogid,
+                  });
+                }
+              );
             }
           );
         } else {
@@ -192,10 +191,17 @@ export default {
         }, 5000);
       }
     },
+    async intital() {
+      await this.getCurrentBlog(this.$route.params.blogid);
+    },
   },
   async created() {
-    this.getCurrentUser()
-  }
+    await this.getCurrentUser();
+    await this.getAllBlogs();
+    this.intital();
+    this.title = this.blogItem.blogTitle;
+    this.$refs.html.setHTML(this.blogItem.blogHTML);
+  },
 };
 </script>
 
@@ -243,18 +249,14 @@ p > span {
   pointer-events: none;
 }
 
-.loading {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: 0;
-  height: 100%;
-}
-
 .v-field__clearable {
   opacity: 0 !important;
 }
 
 .mdi-close-circle {
   opacity: 0 !important;
+}
+.v-progress-circular {
+  width: 25px;
 }
 </style>

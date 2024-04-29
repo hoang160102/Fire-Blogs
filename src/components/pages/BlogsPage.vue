@@ -1,7 +1,7 @@
 <template>
   <main-content>
     <v-container class="blog-cards my-15 pb-15">
-      <div class="toggle-edit">
+      <div v-if="this.user" class="toggle-edit">
         <span class="mr-4">Toggle Editing Post</span>
         <input type="checkbox" v-model="editPost"/>
       </div>
@@ -12,6 +12,7 @@
           :title="card.blogTitle"
           :photo="card.blogImg"
           :date="card.blogDate"
+          :author="card.author"
           :id="card.blogId"
         >
         </blog-card>
@@ -23,13 +24,19 @@
 <script>
 import BlogCard from "../blog/BlogCard.vue";
 import { blogs } from "@/state/helpers";
+import { auth } from "@/state/helpers";
 export default {
   components: {
     BlogCard,
   },
+  data() {
+    return {
+      showModal: false
+    }
+  },
   computed: {
     ...blogs.blogsComputed,
-  
+    ...auth.authComputed,
     editPost: {
       get() {
         return this.$store.state.isAllowEdit
@@ -40,9 +47,11 @@ export default {
     },
   },
   methods: {
-    ...blogs.blogsMethods
+    ...blogs.blogsMethods,
+    ...auth.authMethods,
   },
-  created() {
+  async created() {
+    await this.getCurrentUser()
     this.getAllBlogs()
   }
 };

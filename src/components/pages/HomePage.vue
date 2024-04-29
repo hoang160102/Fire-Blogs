@@ -19,6 +19,7 @@
             :title="card.blogTitle"
             :photo="card.blogImg"
             :date="card.createdAt"
+            :author="card.author"
             :id="card.blogId"
           >
           </blog-card>
@@ -95,7 +96,6 @@ export default {
   },
   async created() {
     await this.getAllBlogs();
-    console.log(this.blogPostsCards);
   },
 };
 </script>

@@ -22,8 +22,8 @@ export const state = {
   errorMsg: "",
 };
 export const mutations = {
-  addUser(state, data) {
-    state.listUsers.push(data);
+  allUsers(state, data) {
+    state.listUsers = data;
   },
   setError(state, msg) {
     state.errorMsg = msg;
@@ -53,6 +53,7 @@ export const actions = {
       email: newUser.email,
       username: newUser.username,
       password: newUser.password,
+      id: result.user.uid
     });
     router.push({ name: "Login" });
   },
@@ -121,6 +122,19 @@ export const actions = {
       router.push({ name: "Login" });
     });
   },
+  async getAllUsers( { commit }) {
+    const arr = [];
+    const db = await getFirestore(firebaseApp);
+    const dbUser = await collection(db, "users");
+    const getUsers = await getDocs(dbUser);
+    getUsers.forEach((doc) => {
+      arr.push(doc.data());
+    });
+    commit("allUsers", arr);
+  },
+  // getAuthor( {state, commit }, id) {
+
+  // }
 };
 
 export const getters = {};

@@ -130,7 +130,7 @@ export default {
 }
 
 header {
-  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.3),
     0px 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 99;
   font-size: 20px;

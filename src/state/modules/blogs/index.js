@@ -9,5 +9,5 @@ export const blogsMutation = {
 }
 
 export const blogsMethods = {
-    ...mapActions('blogs/blogs', ["uploadPost", "getAllBlogs", "getCurrentBlog"])
+    ...mapActions('blogs/blogs', ["uploadPost", "getAllBlogs", "getCurrentBlog", "deleteBlog", "updateBlog"])
 }

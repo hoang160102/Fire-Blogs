@@ -1,7 +1,7 @@
 <template>
   <div class="form-wrap d-flex align-center">
     <div
-      class="px-15 form-login v-col-xl-4 v-col-lg-4 v-col-md-5 v-col-sm-8 v-col-xs-8"
+      class="px-15 form-login v-col-xl-5 v-col-lg-5 v-col-md-5 v-col-sm-8 v-col-xs-8"
     >
       <p class="mb-6">
         Already have account?
@@ -176,12 +176,13 @@ a {
   color: black;
 }
 
-img {
-  transform: rotate(3deg);
-}
-
 button {
   border-radius: 20px;
+}
+
+.background {
+  height: 100vh;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 960px) {

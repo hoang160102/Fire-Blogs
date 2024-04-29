@@ -1,11 +1,18 @@
 <template>
+  <Teleport to="body">
+    <confirm-delete
+      v-if="showModal"
+      @close-modal="close"
+      @delete-card="deletePost"
+    ></confirm-delete>
+  </Teleport>
   <div class="card mt-5 v-col-xl-3 v-col-lg-3 v-col-md-4 v-col-sm-6 v-col-xs-6">
     <div class="card-content">
         <div v-if="isAllowEdit" class="icon d-flex">
-            <div class="icon-edit mr-2 mt-2 bg-white">
+            <div @click="redirectToEdit" class="icon-edit mr-2 mt-2 bg-white">
                 <v-icon class="pa-2">mdi-file-edit-outline</v-icon>
             </div>
-            <div class="icon-delete mr-2 mt-2 bg-white">
+            <div @click="confirmDelete" class="icon-delete mr-2 mt-2 bg-white">
                 <v-icon class="pa-2">mdi-delete-outline</v-icon>
             </div>
         </div>
@@ -25,11 +32,57 @@
 </template>
 
 <script>
-import { toggleEditComputed } from '@/state/helpers';
+import { auth, toggleEditComputed } from '@/state/helpers';
+import { blogs } from '@/state/helpers';
+import ConfirmDelete from '../layout/ConfirmDelete.vue';
+import { getAuth } from 'firebase/auth';
+import router from '@/router';
 export default {
-  props: ["title", "photo", "date", "id"],
+  props: ["title", "photo", "date", "id", "author"],
+  data() {
+    return {
+      showModal: false
+    }
+  },
+  components: {
+    ConfirmDelete
+  },
   computed: {
-    ...toggleEditComputed
+    ...toggleEditComputed,
+    ...blogs.blogsComputed,
+    ...auth.authComputed
+  },
+  methods: {
+    ...blogs.blogsMethods,
+    ...auth.authMethods,
+    confirmDelete() {
+      if (this.author === getAuth().currentUser.uid) {
+        this.showModal = true
+        window.scrollTo(0, 0)
+      }
+      else {
+        alert("You are not the author of blog")
+      }
+    },
+    async deletePost() {
+      await this.deleteBlog(this.id)
+      this.showModal = false
+      this.getAllBlogs()
+    },
+    close() {
+      this.showModal = false
+    },
+    redirectToEdit() {
+      if (this.author === getAuth().currentUser.uid) {
+        router.push({ name: 'EditBlog', params: { blogid: this.id }})
+      }
+      else {
+        alert("You are not the author of blog")
+      }
+    }
+  },
+  async created() {
+    await this.getCurrentUser()
   }
 };
 </script>
@@ -81,5 +134,6 @@ img {
 
 .pa-2 {
     font-size: 16px;
+    cursor: pointer;
 }
 </style>
