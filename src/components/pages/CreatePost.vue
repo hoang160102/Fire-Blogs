@@ -155,7 +155,7 @@ export default {
         if (this.file) {
           this.error = false;
           const storage = getStorage();
-          const docRef = ref(storage, "/images" + this.file.name);
+          const docRef = ref(storage, this.file.name);
           const uploadTask = uploadBytesResumable(docRef, this.file);
           uploadTask.on(
             "state_changed",
